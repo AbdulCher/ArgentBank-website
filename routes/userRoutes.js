@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const userController = require('../controllers/userController')
-const tokenValidation = require('../middleware/tokenValidation')
+const userController = require('../server/controllers/userController')
+const tokenValidation = require('../server/middleware/tokenValidation')
 
 router.post('/signup', userController.createUser)
 
