@@ -5,15 +5,15 @@ import Footer from "../../components/footer/Footer";
 
 
 function Home() {
-  return <>
+  return (
+  <>
     <Header />
     <main>
-        <Hero />
-        <Feat />
-        <Footer />
-      </main>
-    
-    </>
+      <Hero />
+      <Feat />
+      <Footer />
+    </main>
+  </>)
 }
 
 export default Home;
