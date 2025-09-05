@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import store from "./store"; // <-- ton store global
 import App from "./App";
-import "./index.css";
+import "./main.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

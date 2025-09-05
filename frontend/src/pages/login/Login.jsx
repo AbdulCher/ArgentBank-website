@@ -1,5 +1,88 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../store/userSlice";
+import { loginUser } from "../../services/userService";
+
+
 function Login() {
-  return <h1>Page de connexion</h1>;
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      const data = await loginUser(email, password);
+
+      // Dispatch Redux si succès
+      dispatch(loginSuccess({ user: data.body, token: data.body.token }));
+
+      // Gestion "Remember me"
+      if (rememberMe) {
+        localStorage.setItem("token", data.body.token);
+      } else {
+        sessionStorage.setItem("token", data.body.token);
+      }
+
+      console.log("Connexion réussie :", data);
+    } catch (err) {
+      console.error("Erreur loginUser:", err);
+      setError("Identifiants invalides. Veuillez réessayer.");
+    }
+  };
+
+  return (
+    <main className="main bg-dark">
+      <section className="sign-in-content">
+        <i className="fa fa-user-circle sign-in-icon"></i>
+        <h1>Login</h1>
+
+        <form onSubmit={handleSubmit}>
+          <div className="input-wrapper">
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="input-wrapper">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="input-remember">
+            <input
+              type="checkbox"
+              id="remember-me"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+            />
+            <label htmlFor="remember-me">Remember me</label>
+          </div>
+
+          {error && <p className="error-message">{error}</p>}
+
+          <button type="submit" className="sign-in-button">
+            Sign In
+          </button>
+        </form>
+      </section>
+    </main>
+  );
 }
 
 export default Login;
