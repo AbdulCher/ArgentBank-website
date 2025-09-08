@@ -1,9 +1,21 @@
 // src/components/Header.jsx
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/userSlice";
 import logo from "../../assets/argentBankLogo.png"; // adapte le chemin selon ton projet
 import "./header.css"
 
-function Header() {
+function Header({ user, showLogout }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <nav className="main-nav">
       <Link className="main-nav-logo" to="/">
@@ -13,11 +25,25 @@ function Header() {
           alt="Argent Bank Logo"
         />
       </Link>
+
       <div>
-        <Link className="main-nav-item" to="/login">
-          <i className="fa fa-user-circle"></i>
-          Sign In
-        </Link>
+        {user && showLogout ? (
+          <>
+            <Link className="main-nav-item" to="/profile">
+              <i className="fa fa-user-circle"></i>
+              {user.firstName}
+            </Link>
+            <button className="main-nav-item" onClick={handleLogout}>
+              <i className="fa fa-sign-out"></i>
+              Sign Out
+            </button>
+          </>
+        ) : (
+          <Link className="main-nav-item" to="/login">
+            <i className="fa fa-user-circle"></i>
+            Sign In
+          </Link>
+        )}
       </div>
     </nav>
     

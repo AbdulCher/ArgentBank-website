@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../../store/userSlice";
 import { loginUser } from "../../services/userService";
+import { useNavigate } from "react-router-dom";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 
@@ -11,6 +12,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,10 +21,10 @@ function Login() {
     try {
       const data = await loginUser(email, password);
 
-      // Dispatch Redux si succès
+      // Mise à jour du Redux store
       dispatch(loginSuccess({ user: data.body, token: data.body.token }));
 
-      // Gestion "Remember me"
+      // Gestion Remember Me
       if (rememberMe) {
         localStorage.setItem("token", data.body.token);
       } else {
@@ -30,6 +32,9 @@ function Login() {
       }
 
       console.log("Connexion réussie :", data);
+
+      // Redirection vers la page Profil
+      navigate("/profile");
     } catch (err) {
       console.error("Erreur loginUser:", err);
       setError("Identifiants invalides. Veuillez réessayer.");
@@ -42,7 +47,7 @@ function Login() {
       <main className="main bg-dark">
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon"></i>
-          <h1>Login</h1>
+          <h1>Sign In</h1>
 
           <form onSubmit={handleSubmit}>
             <div className="input-wrapper">
