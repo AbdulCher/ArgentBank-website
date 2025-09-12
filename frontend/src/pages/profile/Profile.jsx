@@ -1,4 +1,3 @@
-// src/pages/Profile/Profile.jsx
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -9,6 +8,7 @@ function Profile() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
+  
 
   useEffect(() => {
     if (!token) {

@@ -20,6 +20,7 @@ function Login() {
 
     try {
       const data = await loginUser(email, password);
+      
 
       // Mise à jour du Redux store
       dispatch(loginSuccess({ user: data.body, token: data.body.token }));
