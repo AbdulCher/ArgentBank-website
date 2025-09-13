@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../../store/userSlice";
-import { loginUser } from "../../services/userService";
+import { loginUser, getUserProfile } from "../../services/userService";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -19,22 +19,26 @@ function Login() {
     setError("");
 
     try {
+      // 1. Login -> récupération du token
       const data = await loginUser(email, password);
-      
+      const token = data.body.token;
 
-      // Mise à jour du Redux store
-      dispatch(loginSuccess({ user: data.body, token: data.body.token }));
+      // 2. Récupération du profil utilisateur avec le token
+      const profileData = await getUserProfile(token);
 
-      // Gestion Remember Me
+      // 3. Mise à jour du Redux store avec le user et le token
+      dispatch(loginSuccess({ user: profileData.body, token }));
+
+      // 4. Gestion du Remember Me
       if (rememberMe) {
-        localStorage.setItem("token", data.body.token);
+        localStorage.setItem("token", token);
       } else {
-        sessionStorage.setItem("token", data.body.token);
+        sessionStorage.setItem("token", token);
       }
 
-      console.log("Connexion réussie :", data);
+      console.log("Connexion réussie :", profileData);
 
-      // Redirection vers la page Profil
+      // 5. Redirection vers la page Profil
       navigate("/profile");
     } catch (err) {
       console.error("Erreur loginUser:", err);
