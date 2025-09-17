@@ -1,46 +1,42 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { updateUserProfile } from "../../services/userService";
+import { updateProfileSuccess } from "../../store/userSlice";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 
 function Profile() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
 
   const [isEditing, setIsEditing] = useState(false);
   const [userName, setUserName] = useState(user?.userName || "");
-  const [firstName, setFirstName] = useState(user?.firstName || "");
-  const [lastName, setLastName] = useState(user?.lastName || "");
-
   
-  const handleSave = (e) => {
-    e.preventDefault();
-    console.log("Nouvelles valeurs :", { userName, firstName, lastName });
-    // ici tu pourras appeler ton service updateUserProfile puis dispatch Redux
-    setIsEditing(false);
-  };
-
-  const handleCancel = () => {
-    // reset des champs
-    setUserName(user?.userName || "");
-    setFirstName(user?.firstName || "");
-    setLastName(user?.lastName || "");
-    setIsEditing(false);
-  };
-
-  
-  // useEffect(() => {
-  //   console.dir(user);
-  // }, [user]);
-
   useEffect(() => {
     if (!token) {
       navigate("/login"); // Redirection si pas connecté
     }
   }, [token, navigate]);
 
+  const handleSave = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await updateUserProfile(token, { userName });
+      dispatch(updateProfileSuccess(response.body)); // on garde Redux à jour
+      setIsEditing(false);
+    } catch (err) {
+      console.error("Erreur update profile:", err);
+    }
+  };
+
+  const handleCancel = () => {
+    setUserName(user?.userName || "");
+    setIsEditing(false);
+  };
+  
   if (!user) {
     return (
       <>
@@ -86,20 +82,20 @@ function Profile() {
                       placeholder={user?.userName}
                     />
                   </div>
+                  
                   <div>
                     <label>First name</label>
                     <input
                       type="text"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
+                      value={user.firstName}
                     />
                   </div>
+
                   <div>
                     <label>Last name</label>
                     <input
                       type="text"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
+                      value={user.lastName}
                     />
                   </div>
                   <button className="edit-button" type="submit">

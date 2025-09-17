@@ -17,8 +17,15 @@ const userSlice = createSlice({
       state.user = null;
       state.token = null;
     },
+    updateProfileSuccess(state, action) {
+      // fusionne les nouvelles infos avec les infos existantes
+      state.user = {
+        ...state.user,     // garde les autres champs (email, createdAt, etc.)
+        ...action.payload, // écrase seulement ce qui a changé (userName, firstName, lastName)
+      };
+    },
   },
 });
 
-export const { loginSuccess, logout } = userSlice.actions;
+export const { loginSuccess, logout, updateProfileSuccess } = userSlice.actions;
 export default userSlice.reducer;

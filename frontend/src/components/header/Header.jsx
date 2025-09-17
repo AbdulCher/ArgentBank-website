@@ -31,11 +31,11 @@ function Header({ user, showLogout }) {
           <>
             <Link className="main-nav-item" to="/profile">
               <i className="fa fa-user-circle"></i>
-              {user.firstName}
+              {user.userName}
             </Link>
             <button className="main-nav-item" onClick={handleLogout}>
               <i className="fa fa-sign-out"></i>
-              Sign Out
+              <p>Sign Out</p>
             </button>
           </>
         ) : (
