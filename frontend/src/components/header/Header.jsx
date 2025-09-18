@@ -33,7 +33,7 @@ function Header({ user, showLogout }) {
             <Link className="main-nav-item" to="/profile">
               {user.userName}
               <i className="fa fa-user-circle"></i>
-              
+
             </Link>
             <i className="fa fa-sign-out"></i>
             <button className="main-nav-item button-sign" onClick={handleLogout}>

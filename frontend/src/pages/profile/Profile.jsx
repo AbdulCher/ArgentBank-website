@@ -17,7 +17,7 @@ function Profile() {
   
   useEffect(() => {
     if (!token) {
-      navigate("/login"); // Redirection si pas connecté
+      navigate("/"); // Redirection si pas connecté
     }
   }, [token, navigate]);
 
@@ -69,6 +69,7 @@ function Profile() {
               </button>
             </>
           ) : (
+
               <div className="edit-form">
                 <h2>Edit user info</h2>
                 <form onSubmit={handleSave} className="edit-form">
@@ -81,7 +82,7 @@ function Profile() {
                         value={userName}
                         onChange={(e) => setUserName(e.target.value)}
                         placeholder={user?.userName}
-                        className="input-form"
+                        className="input-form-user"
                       />
                     </div>
                     

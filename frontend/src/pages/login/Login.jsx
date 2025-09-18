@@ -1,17 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../../store/userSlice";
 import { loginUser, getUserProfile } from "../../services/userService";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
-import "./login.css";
+import "../../styles/login.css";
 
 function Login() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(
+  localStorage.getItem("rememberMe") === "true"
+);
+
+useEffect(() => {
+  const savedRememberMe = localStorage.getItem("rememberMe") === "true";
+  const savedEmail = localStorage.getItem("email") || "";
+  
+
+  setRememberMe(savedRememberMe);
+  if (savedRememberMe) {
+    setEmail(savedEmail);
+    
+  }
+}, []);
+
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -32,10 +47,16 @@ function Login() {
 
       // 4. Gestion du Remember Me
       if (rememberMe) {
-        localStorage.setItem("token", token);
+        localStorage.setItem("rememberMe", "true");
+        localStorage.setItem("email", email);
+
       } else {
-        sessionStorage.setItem("token", token);
+        localStorage.removeItem("rememberMe");
+        localStorage.removeItem("email");
+        
       }
+
+
 
       console.log("Connexion réussie :", profileData);
 
@@ -50,7 +71,7 @@ function Login() {
   return (
     <>
       <Header />
-      <main className="main bg-dark">
+      <main className="login-main bg-dark">
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
