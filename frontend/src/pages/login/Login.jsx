@@ -5,6 +5,7 @@ import { loginUser, getUserProfile } from "../../services/userService";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
+import "./login.css";
 
 function Login() {
   const dispatch = useDispatch();

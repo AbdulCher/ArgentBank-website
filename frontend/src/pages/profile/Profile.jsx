@@ -72,42 +72,45 @@ function Profile() {
               <div className="edit-form">
                 <h2>Edit user info</h2>
                 <form onSubmit={handleSave} className="edit-form">
-                  <div>
-                    <label htmlFor="username">User name</label>
-                    <input
-                      type="text"
-                      id="username"
-                      value={userName}
-                      onChange={(e) => setUserName(e.target.value)}
-                      placeholder={user?.userName}
-                    />
-                  </div>
-                  
-                  <div>
-                    <label>First name</label>
-                    <input
-                      type="text"
-                      value={user.firstName}
-                    />
-                  </div>
+                  <div className="edit-input">
+                    <div>
+                      <label htmlFor="username">User name:</label>
+                      <input
+                        type="text"
+                        id="username"
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                        placeholder={user?.userName}
+                        className="input-form"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label>First name:</label>
+                      <input
+                        type="text"
+                        value={user.firstName}
+                        className="input-form"
+                      />
+                    </div>
 
-                  <div>
-                    <label>Last name</label>
-                    <input
-                      type="text"
-                      value={user.lastName}
-                    />
+                    <div>
+                      <label>Last name:</label>
+                      <input
+                        type="text"
+                        value={user.lastName}
+                        className="input-form"
+                      />
+                    </div>
                   </div>
-                  <button className="edit-button" type="submit">
-                    Save
-                  </button>
-                  <button
-                    className="edit-button"
-                    type="button"
-                    onClick={handleCancel}
-                  >
-                    Cancel
-                  </button>
+                  <div className="edit-button-form">
+                    <button className="edit-button" type="submit">
+                      Save
+                    </button>
+                    <button className="edit-button" type="button" onClick={handleCancel}>
+                      Cancel
+                    </button>
+                  </div>
                 </form>
               </div>
             )}
@@ -148,8 +151,9 @@ function Profile() {
             <button className="transaction-button">View transactions</button>
           </div>
         </section>
+        <Footer />
       </main>
-      <Footer />
+      
     </>
   );
 }

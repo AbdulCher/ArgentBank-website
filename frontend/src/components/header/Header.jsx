@@ -26,17 +26,21 @@ function Header({ user, showLogout }) {
         />
       </Link>
 
-      <div>
+      <div className="navi">
         {user && showLogout ? (
           <>
+          <div className="header-navi">
             <Link className="main-nav-item" to="/profile">
-              <i className="fa fa-user-circle"></i>
               {user.userName}
+              <i className="fa fa-user-circle"></i>
+              
             </Link>
-            <button className="main-nav-item" onClick={handleLogout}>
-              <i className="fa fa-sign-out"></i>
-              <p>Sign Out</p>
+            <i className="fa fa-sign-out"></i>
+            <button className="main-nav-item button-sign" onClick={handleLogout}>
+              
+              Sign Out
             </button>
+            </div>
           </>
         ) : (
           <Link className="main-nav-item" to="/login">

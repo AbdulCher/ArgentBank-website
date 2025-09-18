@@ -8,13 +8,15 @@ html {
 
 body {
   margin: 0;
+  margin-bottom: 0px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-.main {
+.main-nav {
   flex: 1;
+  margin-top: 0px;
 }
 
 .bg-dark {
@@ -41,7 +43,26 @@ body {
   align-items: center;
   padding: 5px 20px;
 }
+/*new */
+.header {
+  padding-top: 20px;
+}
+.edit-button {
+  margin-top: 30px;
+  margin: 4px;
+  border-radius: 3px;
+  width: 10%;
+}
 
+.input-form {
+  margin-bottom: 10px;
+  margin-left: 10px;
+  width: 13%;
+  height: 25px;
+  border-radius: 4px;
+  background-color: #ccc;
+}
+/* end */
 .main-nav a {
   font-weight: bold;
   color: #2c3e50;
@@ -168,14 +189,14 @@ body {
 .sign-in-content {
   box-sizing: border-box;
   background-color: white;
-  width: 300px;
+  width: 400px;
   margin: 0 auto;
   margin-top: 3rem;
   padding: 2rem;
 }
 
 .sign-in-icon {
-  font-size: 5rem;
+  font-size: 3rem;
 }
 
 .input-remember {
@@ -207,11 +228,14 @@ body {
   justify-content: center;
   border-top: 2px solid #ccc;
   padding: 2rem 0 1.5rem;
+  background-color: #fff;
+  
 }
 
 .footer-text {
   margin: 0;
   padding: 0;
+  font-size: 20px;
 }
 
 .account {
@@ -219,6 +243,7 @@ body {
   justify-content: space-between;
   align-items: center;
   border: 1px solid black;
+  border-radius: 5px;
   background-color: #fff;
   width: 80%;
   margin: 0 auto;
