@@ -19,11 +19,9 @@ useEffect(() => {
   const savedRememberMe = localStorage.getItem("rememberMe") === "true";
   const savedEmail = localStorage.getItem("email") || "";
   
-
   setRememberMe(savedRememberMe);
   if (savedRememberMe) {
     setEmail(savedEmail);
-    
   }
 }, []);
 
@@ -33,7 +31,6 @@ useEffect(() => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
     try {
       // 1. Login -> récupération du token
       const data = await loginUser(email, password);
@@ -56,12 +53,8 @@ useEffect(() => {
         
       }
 
-
-
       console.log("Connexion réussie :", profileData);
-
-      // 5. Redirection vers la page Profil
-      navigate("/profile");
+      navigate("/profile");// 5. Redirection vers la page Profil
     } catch (err) {
       console.error("Erreur loginUser:", err);
       setError("Identifiants invalides. Veuillez réessayer.");
@@ -87,7 +80,7 @@ useEffect(() => {
                 required
               />
             </div>
-
+            
             <div className="input-wrapper">
               <label htmlFor="password">Password</label>
               <input

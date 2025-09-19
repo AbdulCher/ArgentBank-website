@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: null,   // pas d’utilisateur connecté au départ
-  token: null,  // token JWT si connecté
+  user: null,   
+  token: null, 
 };
 
 const userSlice = createSlice({
@@ -18,10 +18,9 @@ const userSlice = createSlice({
       state.token = null;
     },
     updateProfileSuccess(state, action) {
-      // fusionne les nouvelles infos avec les infos existantes
       state.user = {
-        ...state.user,     // garde les autres champs (email, createdAt, etc.)
-        ...action.payload, // écrase seulement ce qui a changé (userName, firstName, lastName)
+        ...state.user,     
+        ...action.payload,
       };
     },
   },

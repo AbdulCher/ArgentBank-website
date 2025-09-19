@@ -3,7 +3,6 @@ import Hero from "../../components/hero/Hero";
 import Feat from "../../components/feat/Feat";
 import Footer from "../../components/footer/Footer";
 
-
 function Home() {
   return (
   <>

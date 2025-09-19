@@ -1,9 +1,8 @@
-// src/components/Header.jsx
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/userSlice";
 import logo from "../../assets/argentBankLogo.png"; // adapte le chemin selon ton projet
-import "./header.css"
+import "../../styles/header.css"
 
 function Header({ user, showLogout }) {
   const dispatch = useDispatch();

@@ -1,5 +1,3 @@
-// Frontend/services/userService.js
-
 export async function loginUser(email, password) {
   try {
     const response = await fetch("http://localhost:3001/api/v1/user/login", {
@@ -13,7 +11,7 @@ export async function loginUser(email, password) {
     }
 
     return await response.json();
-  } catch (err) {
+    } catch (err) {
     console.error("Erreur loginUser :", err);
     throw err;
   }
@@ -35,7 +33,6 @@ export async function getUserProfile(token) {
   return response.json(); // => { body: { firstName, lastName, email } }
 }
 
-// services/userService.js
 export async function updateUserProfile(token, updatedData) {
   const response = await fetch("http://localhost:3001/api/v1/user/profile", {
     method: "PUT",

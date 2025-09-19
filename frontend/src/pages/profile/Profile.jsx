@@ -5,6 +5,7 @@ import { updateUserProfile } from "../../services/userService";
 import { updateProfileSuccess } from "../../store/userSlice";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
+import "../../styles/profile.css";
 
 function Profile() {
   const dispatch = useDispatch();

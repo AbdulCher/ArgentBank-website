@@ -1,4 +1,3 @@
-// src/components/FeatureItem.jsx
 function FeatureItem({ icon, title, description, alt }) {
   return (
     <div className="feature-item">

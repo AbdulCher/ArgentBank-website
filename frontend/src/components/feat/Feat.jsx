@@ -1,8 +1,8 @@
-// src/components/Features.jsx
 import FeatureItem from "../featureItem/FeatureItem";
 import chatIcon from "../../assets/img/icon-chat.png";
 import moneyIcon from "../../assets/img/icon-money.png";
 import securityIcon from "../../assets/img/icon-security.png";
+import "../../styles/feat.css";
 
 function Feat() {
   return (
