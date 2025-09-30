@@ -91,7 +91,7 @@ function Profile() {
                       <label>First name:</label>
                       <input
                         type="text"
-                        value={user.firstName}
+                        defaultValue={user.firstName}
                         className="input-form"
                       />
                     </div>
@@ -100,7 +100,7 @@ function Profile() {
                       <label>Last name:</label>
                       <input
                         type="text"
-                        value={user.lastName}
+                        defaultValue={user.lastName}
                         className="input-form"
                       />
                     </div>

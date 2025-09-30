@@ -1,0 +1,171 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: ArgentBank API transactions
+  description: API for managing user accounts and transactions
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+
+paths:
+  /accounts:
+    get:
+      summary: Récupérer tous les comptes de l'utilisateur connecté
+      tags:
+        - Accounts
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: List of accounts
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Account"
+
+  /accounts/{id}:
+    get:
+      summary: Récupérer un compte par son ID
+      tags:
+        - Accounts
+      security:
+        - Bearer: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Account found
+          schema:
+            $ref: "#/definitions/Account"
+        404:
+          description: Account not found
+
+  /account/transactions:
+    get:
+      summary: Récupérer tous les détails des transactions du mois en cours groupés par compte de l'utilisateur connecté
+      tags:
+        - Transactions
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: List of transactions
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Transaction"
+
+  /transactions/{id}:
+    get:
+      summary: Récupérer une transaction par ID
+      tags:
+        - Transactions
+      security:
+        - Bearer: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: A transaction
+          schema:
+            $ref: "#/definitions/Transaction"
+        404:
+          description: Transaction not found
+    put:
+      summary: Modifier les details de la transaction (categorie, note)
+      tags:
+        - Transactions
+      security:
+        - Bearer: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionInput"
+      responses:
+        200:
+          description: Transaction updated
+          schema:
+            $ref: "#/definitions/Transaction"
+        404:
+          description: Transaction not found
+
+definitions:
+  Account:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      amount:
+        type: number
+
+  Transaction:
+    type: object
+    properties:
+      id:
+        type: string
+      accountId:
+        type: string
+        description: ID du compte auquel appartient la transaction
+      accountName:
+        type: string
+        description: Nom du compte auquel appartient la transaction
+      userId:
+        type: string
+      date:
+        type: string
+        format: date
+      description:
+        type: string
+      amount:
+        type: number
+      balance:
+        type: number
+        description: Solde du compte après la transaction
+      type:
+        type: string
+        enum: [credit, debit]
+      category:
+        type: string
+      note:
+        type: string
+
+  TransactionInput:
+    type: object
+    required:
+      - date
+      - amount
+      - type
+    properties:
+      date:
+        type: string
+        format: date
+      amount:
+        type: number
+      type:
+        type: string
+        enum: [credit, debit]
+      category:
+        type: string
+      note:
+        type: string
+
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
