@@ -1,6 +1,8 @@
+import { PATH_API_BACKEND } from "../config";
+
 export async function loginUser(email, password) {
   try {
-    const response = await fetch("http://localhost:3001/api/v1/user/login", {
+    const response = await fetch(`${PATH_API_BACKEND}/user/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -18,7 +20,7 @@ export async function loginUser(email, password) {
 }
 
 export async function getUserProfile(token) {
-  const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+  const response = await fetch(`${PATH_API_BACKEND}/user/profile`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -34,7 +36,7 @@ export async function getUserProfile(token) {
 }
 
 export async function updateUserProfile(token, updatedData) {
-  const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+  const response = await fetch(`${PATH_API_BACKEND}/user/profile`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
