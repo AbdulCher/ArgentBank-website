@@ -24,27 +24,7 @@ paths:
             items:
               $ref: "#/definitions/Account"
 
-  /accounts/{id}:
-    get:
-      summary: Récupérer un compte par son ID
-      tags:
-        - Accounts
-      security:
-        - Bearer: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          type: string
-      responses:
-        200:
-          description: Account found
-          schema:
-            $ref: "#/definitions/Account"
-        404:
-          description: Account not found
-
-  /account/transactions:
+  /account/transactions/accountId:
     get:
       summary: Récupérer tous les détails des transactions du mois en cours groupés par compte de l'utilisateur connecté
       tags:
@@ -58,26 +38,6 @@ paths:
             type: array
             items:
               $ref: "#/definitions/Transaction"
-
-  /transactions/{id}:
-    get:
-      summary: Récupérer une transaction par ID
-      tags:
-        - Transactions
-      security:
-        - Bearer: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          type: string
-      responses:
-        200:
-          description: A transaction
-          schema:
-            $ref: "#/definitions/Transaction"
-        404:
-          description: Transaction not found
     put:
       summary: Modifier les details de la transaction (categorie, note)
       tags:

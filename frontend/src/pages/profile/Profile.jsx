@@ -27,7 +27,7 @@ function Profile() {
     try {
       const response = await updateUserProfile(token, { userName });
       dispatch(updateProfileSuccess(response.body)); // on garde Redux à jour
-      setIsEditing(false);
+      setIsEditing(false)
     } catch (err) {
       console.error("Erreur update profile:", err);
     }
@@ -82,6 +82,7 @@ function Profile() {
                         id="username"
                         value={userName}
                         onChange={(e) => setUserName(e.target.value)}
+                        required
                         placeholder={user?.userName}
                         className="input-form-user"
                       />

@@ -101,6 +101,59 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+  /accounts:
+    get:
+      summary: Récupérer tous les comptes de l'utilisateur connecté
+      tags:
+        - Accounts
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: List of accounts
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Account"
+
+  /account/transactions/accountId:
+    get:
+      summary: Récupérer tous les détails des transactions du mois en cours groupés par compte de l'utilisateur connecté
+      tags:
+        - Transactions
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: List of transactions
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Transaction"
+    put:
+      summary: Modifier les details de la transaction (categorie, note)
+      tags:
+        - Transactions
+      security:
+        - Bearer: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionInput"
+      responses:
+        200:
+          description: Transaction updated
+          schema:
+            $ref: "#/definitions/Transaction"
+        404:
+          description: Transaction not found
+
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -156,3 +209,70 @@ definitions:
     properties:
       userName:
         type: string
+  Account:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      amount:
+        type: number
+
+  Transaction:
+    type: object
+    properties:
+      id:
+        type: string
+      accountId:
+        type: string
+        description: ID du compte auquel appartient la transaction
+      accountName:
+        type: string
+        description: Nom du compte auquel appartient la transaction
+      userId:
+        type: string
+      date:
+        type: string
+        format: date
+      description:
+        type: string
+      amount:
+        type: number
+      balance:
+        type: number
+        description: Solde du compte après la transaction
+      type:
+        type: string
+        enum: [credit, debit]
+      category:
+        type: string
+      note:
+        type: string
+
+  TransactionInput:
+    type: object
+    required:
+      - date
+      - amount
+      - type
+    properties:
+      date:
+        type: string
+        format: date
+      amount:
+        type: number
+      type:
+        type: string
+        enum: [credit, debit]
+      category:
+        type: string
+      note:
+        type: string
+
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+

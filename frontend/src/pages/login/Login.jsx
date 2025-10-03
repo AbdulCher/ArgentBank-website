@@ -73,7 +73,7 @@ useEffect(() => {
             <div className="input-wrapper">
               <label htmlFor="username">Username</label>
               <input
-                type="text"
+                type="email"
                 id="username"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
